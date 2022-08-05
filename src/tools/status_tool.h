@@ -71,6 +71,16 @@ struct SpaceInfo {
     uint64_t currentFileSize = 0;
 };
 
+struct LogicalpoolSpaceInfo {
+    std::string poolName = "";
+    uint64_t totalChunkSize = 0;
+    uint64_t usedChunkSize = 0;
+    // 总体能容纳的文件大小
+    uint64_t totalCapacity = 0;
+    // 分配大小
+    uint64_t allocatedSize = 0;
+};
+
 enum class ServiceName {
     // mds
     kMds,
@@ -133,7 +143,8 @@ class StatusTool : public CurveTool {
     int ChunkServerStatusCmd();
     int GetPoolsInCluster(std::vector<PhysicalPoolInfo>* phyPools,
                           std::vector<LogicalPoolInfo>* lgPools);
-    int GetSpaceInfo(SpaceInfo* spaceInfo);
+    int GetSpaceInfo(SpaceInfo* spaceInfo,
+                    std::vector<LogicalpoolSpaceInfo>* lpoolspaceinfo);
     int PrintClusterStatus();
     int PrintMdsStatus();
     int PrintEtcdStatus();
